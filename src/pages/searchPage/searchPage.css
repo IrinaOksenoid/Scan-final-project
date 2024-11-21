@@ -1,0 +1,91 @@
+/* Основной контейнер страницы */
+.search-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+}
+
+.search-page__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* Для позиционирования графических элементов */
+  padding: 50px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.search-page__graphics {
+  position: absolute;
+  top: 30px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.search-page__icon-document {
+  width: 50px;
+  height: auto;
+  animation: float 2s infinite ease-in-out;
+}
+
+.search-page__icon-folders {
+  width: 80px;
+  height: auto;
+  margin-left: 20px;
+  animation: float 2.5s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.search-page__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 30px;
+  margin-top: 100px; /* Отступ для графики */
+}
+
+.search-page__hero {
+  max-width: 400px;
+  height: auto;
+}
+
+@media (max-width: 720px) {
+  .search-page__content {
+    padding: 20px;
+  }
+
+  .search-page__graphics {
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .search-page__icon-folders {
+    display: none; /* Убираем папки в мобильной версии */
+  }
+
+  .search-page__main {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .search-page__hero {
+    max-width: 300px;
+  }
+}

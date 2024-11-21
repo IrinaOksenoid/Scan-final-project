@@ -1,0 +1,76 @@
+/* Общие стили */
+.welcome-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    background-color:var(--white-color);
+  }
+  
+  .welcome-section__content {
+    max-width: 50%;
+  }
+  
+  .welcome-section__title {
+    font-family: 'Ferry', sans-serif;
+    font-size: 60px;
+    font-weight: 900;
+    margin-bottom: 20px;
+  }
+  
+  .welcome-section__description {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: #6b6b6b;
+    margin-bottom: 30px;
+  }
+  
+  .welcome-section__button {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color:var(--white-color);
+    background-color:var(--highlight-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .welcome-section__button:hover {
+    background-color: var(--highlight-color);
+  }
+  
+  .welcome-section__image img {
+    width: 630px;
+    height: 620px;
+  }
+  
+  /* Адаптивные стили */
+  @media (max-width: 720px) {
+    .welcome-section {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+  
+    .welcome-section__content {
+      max-width: 100%;
+    }
+  
+    .welcome-section__title {
+      font-size: 28px;
+    }
+  
+    .welcome-section__description {
+      font-size: 16px;
+    }
+  
+    .welcome-section__image img {
+      width: 347px;
+      height: 342px;
+    }
+  }
+  

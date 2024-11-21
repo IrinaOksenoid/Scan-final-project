@@ -1,0 +1,112 @@
+/* Общие стили для секции слайдера */
+.slider {
+    padding: 50px;
+    background-color: #fff;
+  }
+  
+  .slider__title {
+    font-family: 'Ferry', sans-serif;
+    font-size: 45px;
+    font-weight: 900;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .slider__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  /* Карточки */
+  .slider__cards {
+    display: flex;
+    gap: 30px;
+    overflow: hidden;
+  }
+  
+  .slider__card {
+    width: 400px;
+    height: 225px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .slider__card-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+  }
+  
+  .slider__card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #6b6b6b;
+  }
+  
+  /* Стрелки */
+  .slider__arrow {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .slider__arrow--left {
+    left: -50px;
+  }
+  
+  .slider__arrow--right {
+    right: -50px;
+  }
+  
+  .slider__arrow img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 1340px) {
+    .slider__card {
+      width: 300px; /* Сужаем карточки */
+    }
+  
+    .slider__arrow--left {
+      left: -30px;
+    }
+  
+    .slider__arrow--right {
+      right: -30px;
+    }
+  }
+  
+  @media (max-width: 910px) {
+    .slider__card {
+      width: 200px;
+    }
+  
+    .slider__arrow--left {
+      left: -20px;
+    }
+  
+    .slider__arrow--right {
+      right: -20px;
+    }
+
+    .slider__title {
+      font-size: 28px;
+    }
+  }
+  

@@ -1,0 +1,11 @@
+.summary-carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  

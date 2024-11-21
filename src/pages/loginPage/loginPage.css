@@ -1,0 +1,29 @@
+/* Общие стили для страницы авторизации */
+.login-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Гарантируем, что футер находится внизу */
+    background-color: #fff;
+  }
+  
+  .login-page__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 20px;
+    flex-grow: 1; /* Растягиваем контент между Header и Footer */
+    gap: 50px; /* Расстояние между заголовком и формой */
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 720px) {
+    .login-page__content {
+      flex-direction: column;
+      align-items: center;
+      gap: 30px; /* Уменьшаем расстояние между блоками */
+      padding: 20px; /* Уменьшаем отступы */
+    }
+  }
+  
