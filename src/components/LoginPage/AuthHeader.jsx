@@ -10,11 +10,11 @@ function AuthHeader() {
         <h1 className="auth-header__title">
           ДЛЯ ОФОРМЛЕНИЯ ПОДПИСКИ НА ТАРИФ, НЕОБХОДИМО АВТОРИЗОВАТЬСЯ.
         </h1>
-        <img src={lockIcon} alt="Lock Icon" className="auth-header__icon" />
+        {/* <img src={lockIcon} alt="Lock Icon" className="auth-header__icon" /> */}
       </div>
-      <div className="auth-header__image">
+      {/* <div className="auth-header__image">
         <img src={authImage} alt="People with a key" />
-      </div>
+      </div> */}
     </div>
   );
 }

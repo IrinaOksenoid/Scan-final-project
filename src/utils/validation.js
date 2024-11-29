@@ -1,3 +1,22 @@
+export const validateForm = ({ login, password }) => {
+  let isValid = true;
+  const newErrors = { login: '', password: '' };
+
+  if (!login) {
+    isValid = false;
+    newErrors.login = 'Введите корректные данные';
+  }
+
+  if (!password) {
+    isValid = false;
+    newErrors.password = 'Введите пароль';
+  }
+
+  return { isValid, errors: newErrors };
+};
+
+
+
 export const validateINN = (inn) => {
     if (!/^\d{10}$/.test(inn)) {
       return 'ИНН должен состоять из 10 цифр.';

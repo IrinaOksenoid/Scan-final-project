@@ -1,13 +1,19 @@
 const BASE_URL = 'https://gateway.scan-interfax.ru/api/v1';
 
 const apiClient = async (endpoint, options = {}) => {
-  const token = localStorage.getItem('accessToken'); // Достаем токен из localStorage
+  const token = localStorage.getItem('accessToken');
+  const tokenExpire = localStorage.getItem('tokenExpire');
+  
+  // Проверка срока действия токена
+  if (tokenExpire && new Date(tokenExpire) <= new Date()) {
+    throw new Error('Токен истек. Выполните вход заново.');
+  }
 
   const config = {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      ...(token && { Authorization: `Bearer ${token}` }), // Добавляем заголовок Authorization, если токен существует
+      ...(token && { Authorization: `Bearer ${token}` }), // Добавляем токен, если он существует
     },
     ...options,
   };
@@ -23,7 +29,7 @@ const apiClient = async (endpoint, options = {}) => {
     return await response.json();
   } catch (error) {
     console.error('API Error:', error);
-    throw error; // Пробрасываем ошибку, чтобы можно было обработать в компонентах
+    throw error;
   }
 };
 

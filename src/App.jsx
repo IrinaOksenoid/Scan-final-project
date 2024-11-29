@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { isTokenValid } from './utils/tokenUtils';
+import { restoreSession, logout } from './store/slices/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import HomePage from './pages/homePage/homePage';
 import LoginPage from './pages/loginPage/loginPage';
 import SearchPage from './pages/searchPage/searchPage';
@@ -16,7 +18,20 @@ function ProtectedRoute({ isAuthenticated, children }) {
 }
 
 function App() {
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Проверка авторизации из Redux
+
+  useEffect(() => {
+    const tokenIsValid = isTokenValid();
+    const userData = JSON.parse(localStorage.getItem('user')); // Предположим, данные пользователя сохранены
+
+    if (tokenIsValid && userData) {
+      dispatch(restoreSession(userData)); // Восстановление сессии
+    } else {
+      dispatch(logout()); // Если токен недействителен
+    }
+  }, [dispatch]);
+
 
   return (
     <Router>

@@ -1,27 +1,39 @@
 import React from 'react';
 import './DocumentList.css';
+import PublicationCard from './PublicationCard';
 
-function DocumentList() {
+function DocumentList({ documents, onLoadMore }) {
+  console.log('Received documents:', documents); // Логируем полученные документы
+  
+  if (!documents || documents.length === 0) {
+    return <div className="document-list__empty">Документы не найдены.</div>;
+  }
   return (
     <div className="document-list">
       <h2 className="document-list__title">Список документов</h2>
       <div className="document-list__container">
-        <div>
-        <PublicationCard
-            date="13.09.2021"
-            source="Комсомольская правда KP.RU"
-            title="Скиллфэктори - лучшая онлайн-школа для будущих айтишников"
-            content="SkillFactory — школа для всех, кто хочет изменить свою карьеру и жизнь. С 2016 года обучение прошли 20 000+ человек из 40 стран и 4 континентов."
-            image="https://via.placeholder.com/641x341"
-            wordCount={2543}
-            url="https://kp.ru"
-            isTechNews={true}
-            isAnnouncement={false}
-            isDigest={false}
-        />
-        </div>
+        {documents.map((doc, index) => (
+          <PublicationCard
+            key={doc.id || index} // Используем id или индекс
+            date={doc.issueDate}
+            source={doc.source.name}
+            title={doc.title.text}
+            content={doc.content}
+            image={doc.imageUrl || 'https://via.placeholder.com/150'} // Пример заглушки
+            wordCount={doc.attributes?.wordCount}
+            url={doc.url}
+            isTechNews={doc.attributes?.isTechNews}
+            isAnnouncement={doc.attributes?.isAnnouncement}
+            isDigest={doc.attributes?.isDigest}
+          />
+        ))}
       </div>
-      <button className="document-list__load-more">Показать больше</button>
+      
+      {onLoadMore && (
+        <button className="document-list__load-more" onClick={onLoadMore}>
+          Показать больше
+        </button>
+      )}
     </div>
   );
 }

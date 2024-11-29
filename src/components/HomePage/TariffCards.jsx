@@ -40,7 +40,7 @@ const tariffs = [
     description: 'Для корпоративных клиентов',
     price: '2 379 ₽',
     oldPrice: '3 700 ₽',
-    monthly: '',
+    monthly: 'или',
     benefits: [
       'Все пункты тарифа Pro',
       'Безлимитное количество запросов',
@@ -72,26 +72,38 @@ function TariffCards() {
                 className="tariffs__card-header"
                 style={{ backgroundColor: tariff.color }}
               >
-                <img src={tariff.icon} alt="icon" className="tariffs__card-icon" />
-                <span className="tariffs__card-title">{tariff.title}</span>
+                <div className="tariffs__card-text">
+                  <p className={`tariffs__card-title ${tariff.id === 3 ? 'tariffs__card-title--white' : ''}`}>
+                    {tariff.title}
+                  </p>
+                  <span className={`tariffs__card-description ${tariff.id === 3 ? 'tariffs__card-description--white' : ''}`}>
+                    {tariff.description}
+                  </span>
+                </div>
+                  <img src={tariff.icon} alt="icon" className="tariffs__card-icon" />
               </div>
-              <p className="tariffs__card-description">{tariff.description}</p>
-              <p className="tariffs__card-price">
-                {tariff.price}{' '}
-                <span className="tariffs__card-old-price">{tariff.oldPrice}</span>
-              </p>
-              <p className="tariffs__card-monthly">{tariff.monthly}</p>
-              <ul className="tariffs__card-benefits">
-                {tariff.benefits.map((benefit, index) => (
-                  <li key={index} className="tariffs__card-benefit">
-                    ✔ {benefit}
-                  </li>
-                ))}
-              </ul>
-              {isCurrent && <div className="tariffs__badge">Текущий тариф</div>}
-              <button className="tariffs__card-button">
-                {isCurrent ? 'Перейти в личный кабинет' : 'Подробнее'}
-              </button>
+              <div className="tafiff__card-content">
+                <div className='tariff__card-tariff'>
+
+                  <p className="tariffs__card-price">
+                    {tariff.price}{' '}
+                    <span className="tariffs__card-old-price">{tariff.oldPrice}</span>
+                  </p>
+                  <p className="tariffs__card-monthly">{tariff.monthly}</p>
+                </div>
+                  <p  className='tariffs__card-include'>В тариф входит</p>
+                  <ul className="tariffs__card-benefits">
+                    {tariff.benefits.map((benefit, index) => (
+                      <li key={index} className="tariffs__card-benefit">
+                        ✔ {benefit}
+                      </li>
+                    ))}
+                  {isCurrent && <div className="tariffs__badge">Текущий тариф</div>}
+                  </ul>
+                  <button className="tariffs__card-button">
+                    {isCurrent ? 'Перейти в личный кабинет' : 'Подробнее'}
+                  </button>
+                </div>
             </div>
           );
         })}

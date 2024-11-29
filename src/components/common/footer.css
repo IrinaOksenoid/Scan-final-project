@@ -1,20 +1,25 @@
 .footer {
     display: flex;
+    justify-content: center; /* Разделение элементов */
+    align-items: center; /* Вертикальное выравнивание */
+    height: 137px; /* Высота блока */
+    background-color: var(--primary-color); /* Цвет фона */
+    width: 100%;
+    margin-top: 118px;
+  }
+  
+  .footer__content{
+    display: flex;
     justify-content: space-between; /* Разделение элементов */
     align-items: center; /* Вертикальное выравнивание */
-    height: 175px; /* Высота блока */
-    background-color: var(--primary-color); /* Цвет фона */
-    padding: 0 50px; /* Внешние отступы для внутреннего контента */
+    padding: 9px 4px; /* Внешние отступы для внутреннего контента */
     color: #ffffff; /* Белый цвет текста */
-    font-family: 'Inter', sans-serif; /* Шрифт Inter */
     font-size: 14px; /* Размер шрифта */
     line-height: 1.5; /* Межстрочный интервал */
-  }
-  
-  .footer__logo img {
-    height: 50px; /* Задаём высоту логотипа */
-  }
-  
+    max-width: 1320px;
+    width: 100%;
+  } 
+
   .footer__info {
     text-align: right; /* Выравнивание текста по правому краю */
   }
@@ -23,3 +28,7 @@
     margin: 0; /* Убираем внешние отступы */
   }
   
+  .footer__info .footer_copyright{
+    font-size: 12px;
+    margin-top: 21px;
+  }

@@ -1,15 +1,20 @@
 import React from 'react';
-import {Header, Footer} from '../../components/common'; 
-import {AuthHeader, LoginForm} from '../../components/LoginPage';
+import { Header, Footer } from '../../components/common';
+import { AuthHeader, LoginForm, LoginImage, MobileLoginImage } from '../../components/LoginPage';
 import './LoginPage.css';
+
 
 function LoginPage() {
   return (
     <div className="login-page">
       <Header />
       <div className="login-page__content">
-        <AuthHeader />
+        <div className="login-page__left">
+          <AuthHeader />
+          <LoginImage />
+        </div>
         <LoginForm />
+        <MobileLoginImage /> {/* Картинка для мобильной версии */}
       </div>
       <Footer />
     </div>

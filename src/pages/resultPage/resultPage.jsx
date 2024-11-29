@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import {Header, Footer} from '../../components/common'; 
-import {ResultHeader, SummaryCarousel, DocumentList} from '../../components/ResultPage';
+import { Header, Footer } from '../../components/common';
+import { ResultHeader, SummaryCarousel, DocumentList } from '../../components/ResultPage';
 import { buildSearchParams } from '../../utils/searchParams';
 import { fetchHistogramsAndPublications, fetchBatchDocuments } from '../../services/resultService';
 import './resultPage.css';
@@ -28,18 +28,24 @@ function ResultPage() {
       setError(null);
 
       try {
-        const params = buildSearchParams(searchParams);
+        const params = buildSearchParams(searchParams); // Формируем параметры для API
+        console.log('Request Parameters:', params);
 
         // Загружаем сводку и ID публикаций
-        const { histograms, ids } = await fetchHistogramsAndPublications(params);
-        setHistograms(histograms);
-        setDocumentIds(ids);
+        const { histograms: fetchedHistograms, ids: fetchedIds } = await fetchHistogramsAndPublications(params);
+
+        setHistograms(fetchedHistograms);
+        setDocumentIds(fetchedIds);
+        console.log('Fetched Histograms:', fetchedHistograms);
+        console.log('Fetched Publication IDs:', fetchedIds);
 
         // Загружаем первые 10 публикаций
-        const initialDocuments = await fetchBatchDocuments(ids, 0, 10);
+        const initialDocuments = await fetchBatchDocuments(fetchedIds, 0, 10);
+        console.log('Fetched Initial Documents:', initialDocuments);
         setDocuments(initialDocuments);
       } catch (err) {
-        setError(err.message || 'Произошла ошибка при загрузке данных');
+        console.error('Error fetching results:', err);
+        setError('Произошла ошибка при загрузке данных.');
       } finally {
         setLoading(false);
       }
@@ -49,8 +55,13 @@ function ResultPage() {
   }, [searchParams]);
 
   const handleLoadMore = async () => {
-    const nextBatch = await fetchBatchDocuments(documentIds, documents.length, 10);
-    setDocuments((prevDocs) => [...prevDocs, ...nextBatch]);
+    try {
+      const nextBatch = await fetchBatchDocuments(documentIds, documents.length, 10);
+      setDocuments((prevDocs) => [...prevDocs, ...nextBatch]);
+    } catch (error) {
+      console.error('Error loading more documents:', error);
+      setError('Произошла ошибка при загрузке дополнительных документов.');
+    }
   };
 
   return (

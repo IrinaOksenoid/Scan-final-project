@@ -1,7 +1,7 @@
 /* Ferry - для заголовков */
 @font-face {
     font-family: 'Ferry';
-    src: url('/public/fonts/ferry_black.woff') format('woff');
+    src: url('/fonts/ferry_black.woff') format('woff');
     font-weight: 900; 
     font-style: normal;
   }
@@ -9,7 +9,7 @@
   /* Inter Variable */
   @font-face {
     font-family: 'Inter';
-    src: url('/public/fonts/Inter-VariableFont_opsz_wght.woff') format('woff');
+    src: url('/fonts/Inter-VariableFont_opsz_wght.woff') format('woff');
     font-weight: 100 900; 
     font-style: normal;
   }

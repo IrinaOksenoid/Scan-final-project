@@ -1,19 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './PublicationCard.css';
+import { formatDate } from '../../utils/formatDate ';
+import sanitizeHtml from 'sanitize-html'; // Для очистки HTML
 
 function PublicationCard({
   date,
   source,
   title,
   content,
-  image,
   wordCount,
   url,
   isTechNews,
   isAnnouncement,
   isDigest,
 }) {
-  // Определяем тег для публикации
+  const [parsedContent, setParsedContent] = useState('');
+  const [imageSrc, setImageSrc] = useState(null);
+
+  // Парсинг XML через DOMParser
+  useEffect(() => {
+    if (content.markup) {
+      try {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(content.markup, 'application/xml');
+
+        // Проверяем на ошибки парсинга
+        const parserError = xmlDoc.querySelector('parsererror');
+        if (parserError) {
+          console.error('Ошибка парсинга XML:', parserError.textContent);
+          setParsedContent('Не удалось загрузить контент');
+          return;
+        }
+
+        // Извлекаем предложения из <sentence>
+        const sentences = Array.from(xmlDoc.getElementsByTagName('sentence'))
+          .map((sentence) => sentence.textContent)
+          .join(' ');
+
+        // Очистка текста от лишних тегов и разметки
+        const sanitizedContent = sanitizeHtml(sentences, {
+          allowedTags: [], // Убираем все HTML-теги
+          allowedAttributes: {}, // Убираем атрибуты
+        });
+        setParsedContent(sanitizedContent);
+
+        // Извлекаем URL изображения из <img>
+        const imgTag = xmlDoc.querySelector('img');
+        if (imgTag) {
+          const src = imgTag.getAttribute('src');
+          setImageSrc(src);
+        }
+      } catch (error) {
+        console.error('Ошибка обработки XML:', error);
+        setParsedContent('Не удалось загрузить контент');
+      }
+    }
+  }, [content]);
+
+  // Определяем тег публикации
   const getTag = () => {
     if (isTechNews) return 'Технические новости';
     if (isAnnouncement) return 'Анонсы и события';
@@ -25,7 +69,7 @@ function PublicationCard({
     <div className="publication-card">
       {/* Дата и источник */}
       <div className="publication-card__header">
-        <span className="publication-card__date">{date}</span>
+        <span className="publication-card__date">{formatDate(date)}</span>
         <a
           href={source}
           target="_blank"
@@ -43,16 +87,16 @@ function PublicationCard({
       {getTag() && <span className="publication-card__tag">{getTag()}</span>}
 
       {/* Изображение */}
-      {image && (
+      {imageSrc && (
         <img
-          src={image}
+          src={imageSrc}
           alt={title}
           className="publication-card__image"
         />
       )}
 
       {/* Основной контент */}
-      <p className="publication-card__content">{content}</p>
+      <p className="publication-card__content">{parsedContent}</p>
 
       {/* Кнопка и количество слов */}
       <div className="publication-card__footer">

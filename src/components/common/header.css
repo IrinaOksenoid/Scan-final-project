@@ -1,147 +1,156 @@
-/* Базовые стили */
 .header {
-    height: 93px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background-color: var(--white-color);
-    position: relative;
-    z-index: 10;
-  }
-  
-  .header__logo img {
-    height: 40px;
-  }
-  
-  .header__menu-icon {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  /* margin: 0 15px; */
+  background-color: var(--white-color);
+  position: relative;
+  z-index: 10;
+}
+
+.header__nav {
+  display: flex;
+  gap: 49px;
+}
+
+.header__nav-link {
+  text-decoration: none;
+  color: var(--black-color);
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.header__nav-link:hover {
+  color: var(--primary-color);
+}
+
+
+.header__account {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+ 
+}
+
+.header__auth {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__register{
+  font-size: 14px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.4);;
+}
+.header__login {
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #000; /* Чёрный цвет текста */
+  background-color: var(--secondary-accent-color); /* Цвет кнопки */
+  border: none; /* Убираем рамку */
+  border-radius: 5px; /* Скругленные углы */
+  padding: 5px 10px; /* Внутренние отступы */
+  cursor: pointer; /* Указатель мыши при наведении */
+  transition: background-color 0.3s ease; /* Анимация изменения фона */
+
+}
+
+.header__divider {
+  height: 26px;
+  width: 2px;
+  background-color: var(--primary-color);
+}
+
+.header__limits {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  border-radius: 5px;
+  background-color: rgba(217, 217, 217, 0.4);
+  line-height: 1.2;
+  padding: 9px 4px;
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.4);
+  margin: 0;
+}
+
+.header__limits p{
+
+margin: 7px;
+}
+
+.header__limits-used{
+font-size: 14px;
+font-weight: 700;
+color: var(--black-color);
+}
+
+.header__limits-company{
+  font-size: 14px;
+  font-weight: 700;
+  color: #8AC540;
+}
+
+
+.header__user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.header__logout {
+  background-color: var(--white-color);
+  border: none;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+/* Мобильное меню */
+.header__menu-icon {
+  display: none;
+  cursor: pointer;
+}
+
+.menu-icon {
+  width: 25px;
+  height: 3px;
+  background-color: var(--primary-color);
+  position: relative;
+}
+
+.menu-icon.open {
+  transform: rotate(45deg);
+}
+
+.header__mobile-menu {
+  position: absolute;
+  top: 93px;
+  left: 0;
+  width: 100%;
+  background-color: var(--white-color);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+}
+
+.mobile-menu__nav {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+
+@media (max-width: 720px) {
+  .header__nav,
+  .header__account {
     display: none;
-    cursor: pointer;
   }
-  
-  /* Иконка меню (три полоски) */
-  .menu-icon {
-    width: 25px;
-    height: 3px;
-    background-color: var(--primary-color);
-    position: relative;
-    transition: all 0.3s ease;
+
+  .header__menu-icon {
+    display: block;
   }
-  
-  .menu-icon.open {
-    transform: rotate(45deg);
-  }
-  
-  .menu-icon::after,
-  .menu-icon::before {
-    content: '';
-    width: 25px;
-    height: 3px;
-    background-color: var(--primary-color);
-    position: absolute;
-    left: 0;
-    transition: all 0.3s ease;
-  }
-  
-  .menu-icon::before {
-    top: -8px;
-  }
-  
-  .menu-icon::after {
-    top: 8px;
-  }
-  
-  .menu-icon.open::before {
-    transform: rotate(-90deg);
-    top: 0;
-  }
-  
-  .menu-icon.open::after {
-    transform: rotate(-90deg);
-    top: 0;
-  }
-  
-  /* Мобильное меню */
-  .header__mobile-menu {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh; /* Меню на всю высоту экрана */
-    background-color: var(--primary-color); /* Цвет фона */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 20;
-  }
-  
-  /* Ссылки в мобильном меню */
-  .mobile-menu__nav {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px; /* Расстояние между элементами */
-  }
-  
-  .mobile-menu__nav a {
-    font-size: 16px; /* Размер шрифта */
-    font-family: 'Inter', sans-serif;
-    font-weight: 400; /* Regular */
-    color: var(--white-color);
-    text-decoration: none;
-  }
-  
-  .mobile-menu__nav a:hover {
-    text-decoration: underline; /* Подчеркивание при наведении */
-  }
-  
-  /* "Зарегистрироваться" с прозрачностью */
-  .header__register {
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.4); /* Прозрачность текста 40% */
-    text-decoration: none;
-    cursor: default;
-  }
-  
-  /* Кнопка "Войти" */
-  .header__login {
-    font-size: 16px; /* Размер шрифта */
-    font-family: 'Inter', sans-serif;
-    font-weight: bold;
-    color: #000; /* Чёрный текст */
-    background-color: var(--secondary-accent-color); /* Цвет кнопки */
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px; /* Внутренние отступы */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .header__login:hover {
-    background-color: var(--primary-color); /* Изменение цвета при наведении */
-    color: var(--white-color)
-  }
-  
-  /* Иконка закрытия меню */
-  .header__menu-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
-    color: var(--white-color);
-    cursor: pointer;
-  }
-  
-  /* Адаптивность */
-  @media (max-width: 720px) {
-    .header__nav,
-    .header__account {
-      display: none;
-    }
-  
-    .header__menu-icon {
-      display: block;
-    }
-  }
-  
+}

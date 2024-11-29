@@ -7,10 +7,7 @@ function SeparatorImage() {
 
   return (
     <section className="separator-section">
-       
-      <div className="separator-section__image">
-        <img src={homeImage} alt="Тематическая картинка" />
-      </div>
+      <img src={homeImage} alt="Тематическая картинка" />
     </section>
   );
 }
