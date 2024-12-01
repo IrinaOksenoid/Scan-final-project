@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; /* Занимает всю ширину */
+  width: 100%;
 }
 
 .mobile-summary-carousel__header {
@@ -12,9 +12,9 @@
   color: var(--white-color);
   padding: 12px 8px;
   border-radius: 4px;
-  font-weight: bold;
+  font-weight: 700;
   width: 100%;
-  max-width: 320px; /* Ограничиваем ширину заголовка */
+  max-width: 320px;
 }
 
 .mobile-summary-carousel__container {
@@ -23,8 +23,8 @@
   justify-content: center;
   width: 100%;
   padding: 0 8px;
-  max-width: 320px; /* Ограничиваем ширину карусели */
-  position: relative; /* Для размещения стрелок */
+  max-width: 320px;
+  position: relative;
   border-radius: 4px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
@@ -32,10 +32,8 @@
 .mobile-summary-carousel__row {
   display: flex;
   justify-content: space-between;
-  background-color: #ffffff;
+  background-color: var(--white-color);
   padding: 12px 8px;
-  /* border-radius: 4px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); */
   width: 100%;
   max-width: 320px;
 }
@@ -46,7 +44,7 @@
   padding: inherit;
 }
 
-.slider__arrow {
+.carousel__arrow {
   background: none;
   border: none;
   position: absolute;
@@ -57,15 +55,15 @@
   padding: 8px;
 }
 
-.slider__arrow--left {
+.carousel__arrow--left {
   left: -40px;
 }
 
-.slider__arrow--right {
+.carousel__arrow--right {
   right: -40px;
 }
 
-.slider__arrow[disabled] {
+.carousel__arrow[disabled] {
   opacity: 0.3;
   cursor: not-allowed;
 }

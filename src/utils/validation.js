@@ -1,20 +1,37 @@
+// export const validateForm = ({ login, password }) => {
+//   let isValid = true;
+//   const newErrors = { login: '', password: '' };
+
+//   if (!login) {
+//     isValid = false;
+//     newErrors.login = 'Введите корректные данные';
+//   }
+
+//   if (!password) {
+//     isValid = false;
+//     newErrors.password = 'Введите пароль';
+//   }
+
+//   return { isValid, errors: newErrors };
+// };
+
+
 export const validateForm = ({ login, password }) => {
-  let isValid = true;
-  const newErrors = { login: '', password: '' };
+  const errors = {};
 
   if (!login) {
-    isValid = false;
-    newErrors.login = 'Введите корректные данные';
+    errors.login = 'Введите логин';
   }
 
   if (!password) {
-    isValid = false;
-    newErrors.password = 'Введите пароль';
+    errors.password = 'Введите пароль';
   }
 
-  return { isValid, errors: newErrors };
+  return {
+    isValid: Object.keys(errors).length === 0, // Форма валидна, если ошибок нет
+    errors,
+  };
 };
-
 
 
 export const validateINN = (inn) => {

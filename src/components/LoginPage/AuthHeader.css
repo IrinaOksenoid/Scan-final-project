@@ -2,14 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 50px;
-    gap: 30px;
   }
-  
-  .auth-header__text {
-    flex: 1;
-  }
-  
+    
   .auth-header__title {
     font-family: 'Ferry', sans-serif;
     font-size: 36px;
@@ -18,34 +12,18 @@
     margin-bottom: 20px;
   }
   
-  .auth-header__icon {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .auth-header__image img {
-    max-width: 100%;
-    height: auto;
-  }
   
   @media (max-width: 720px) {
     .auth-header {
       flex-direction: column;
       align-items: center;
-      text-align: center;
+      text-align: start;
     }
   
-    .auth-header__text {
-      margin-bottom: 20px;
-    }
-  
+    
     .auth-header__title {
       font-size: 24px;
     }
-  
-    .auth-header__icon {
-      width: 40px;
-      height: 40px;
-    }
+      
   }
   

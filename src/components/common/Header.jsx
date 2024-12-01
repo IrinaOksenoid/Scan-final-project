@@ -4,20 +4,21 @@ import { fetchLimits } from '../../store/slices/limitsSlice';
 import { logout } from '../../store/slices/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo_green.svg';
+import avatar from '../../assets/avatar.png';
+import menuicon from '../../assets/menu_icon.svg';
 import { Loader } from '../common';
+import MobileMenu from './MobileMenu'; 
 import './header.css';
 
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isMenuOpen, setMenuOpen] = useState(false); // Состояние для мобильного меню
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
-  // Получаем данные из Redux
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
   const { data: companyLimits, loading } = useSelector((state) => state.limits);
 
-  // Загружаем лимиты при авторизации
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(fetchLimits());
@@ -26,24 +27,21 @@ function Header() {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/'); // Возврат на главную страницу
+    navigate('/');
   };
 
   return (
     <header className="header">
-      {/* Логотип */}
       <Link to="/" className="header__logo">
         <img src={logo} alt="СКАН" />
       </Link>
 
-      {/* Полноэкранное меню */}
       <nav className="header__nav">
         <Link to="/" className="header__nav-link">Главная</Link>
         <Link to="#" className="header__nav-link">Тарифы</Link>
         <Link to="#" className="header__nav-link">FAQ</Link>
       </nav>
 
-      {/* Панель управления учетной записью (только для авторизованных) */}
       <div className="header__account">
         {isAuthenticated ? (
           <>
@@ -53,21 +51,24 @@ function Header() {
               ) : companyLimits ? (
                 <div className="header__limits">
                   <p>
-                    Использовано компаний: <span className='header__limits-used'>{companyLimits.used}</span>
+                    Использовано компаний: <span className="header__limits-used">{companyLimits.used}</span>
                   </p>
                   <p>
-                    Лимит компаний: <span className='header__limits-company'>{companyLimits.limit}</span>
+                    Лимит компаний: <span className="header__limits-company">{companyLimits.limit}</span>
                   </p>
                 </div>
               ) : (
-                <p>Лимиты недоступны</p> // Обработка случая, если данные отсутствуют
+                <p>Лимиты недоступны</p>
               )}
             </div>
             <div className="header__user">
-              <span>{user?.name || 'Пользователь'}</span> {/* Безопасная проверка user */}
-              <button className="header__logout" onClick={handleLogout}>
-                Выйти
-              </button>
+              <div className="header__user-text">
+                <span>{user?.name || 'Пользователь'}</span>
+                <button className="header__logout" onClick={handleLogout}>
+                  Выйти
+                </button>
+              </div>
+              <img src={avatar} alt="Аватар" />
             </div>
           </>
         ) : (
@@ -86,45 +87,29 @@ function Header() {
         )}
       </div>
 
-      {/* Меню для мобильной версии */}
       <div className="header__menu-icon" onClick={() => setMenuOpen(!isMenuOpen)}>
-        <div className={`menu-icon ${isMenuOpen ? 'open' : ''}`}></div>
+        {isMenuOpen ? (
+          <span className="menu-close">&times;</span> 
+        ) : (
+          <img
+            src={menuicon}
+            alt="Открыть меню"
+            className="menu-icon"
+          />
+        )}
       </div>
 
-      {isMenuOpen && (
-        <div className="header__mobile-menu">
-          <div className="header__menu-close" onClick={() => setMenuOpen(false)}>
-            &times;
-          </div>
-          <nav className="mobile-menu__nav">
-            <Link to="/" onClick={() => setMenuOpen(false)}>
-              Главная
-            </Link>
-            <Link to="/tariffs" onClick={() => setMenuOpen(false)}>
-              Тарифы
-            </Link>
-            <Link to="/faq" onClick={() => setMenuOpen(false)}>
-              FAQ
-            </Link>
-            {!isAuthenticated && (
-              <>
-                <Link to="#" className="header__register">
-                  Зарегистрироваться
-                </Link>
-                <button
-                  onClick={() => {
-                    setMenuOpen(false);
-                    navigate('/login');
-                  }}
-                  className="header__login"
-                >
-                  Войти
-                </button>
-              </>
-            )}
-          </nav>
-        </div>
-      )}
+      <MobileMenu
+        isMenuOpen={isMenuOpen}
+        setMenuOpen={setMenuOpen}
+        isAuthenticated={isAuthenticated}
+        navigate={navigate}
+        onLogout={() => {
+          dispatch(logout());
+          navigate('/'); 
+        }}
+      />
+
     </header>
   );
 }

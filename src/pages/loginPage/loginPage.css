@@ -8,24 +8,23 @@
 
 .login-page__content {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Две колонки */
+  grid-template-columns: 1fr 1fr;
   gap: 30px;
-  align-items: start; /* Выровнять элементы по верхнему краю */
+  align-items: start;
   max-width: 1200px;
-  margin: 50px auto;
-  padding: 0 20px;
+  margin: 50px 0;
+  padding: 0 10px;
 }
 
 .login-page__left {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Расстояние между заголовком и картинкой */
+  gap: 20px;
 }
 
-/* Адаптивность для мобильной версии */
 @media (max-width: 720px) {
   .login-page__content {
-    grid-template-columns: 1fr; /* Одна колонка */
+    grid-template-columns: 1fr;
     gap: 20px;
   }
 

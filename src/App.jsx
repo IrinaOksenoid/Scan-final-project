@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     const tokenIsValid = isTokenValid();
-    const userData = JSON.parse(localStorage.getItem('user')); // Предположим, данные пользователя сохранены
+    const userData = JSON.parse(localStorage.getItem('user')); 
 
     if (tokenIsValid && userData) {
       dispatch(restoreSession(userData)); // Восстановление сессии

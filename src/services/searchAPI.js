@@ -49,7 +49,7 @@ export const fetchPublicationDetails = async (ids) => {
         return item.ok; // Возвращаем только успешные публикации
       } else {
         console.warn('Failed to fetch publication:', item.fail);
-        return null; // Можно убрать публикации, где `fail`
+        return null; 
       }
     }).filter(Boolean); // Фильтруем только успешные публикации
   } catch (error) {

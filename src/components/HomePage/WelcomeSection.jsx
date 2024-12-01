@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux'; // Импортируем useSelector для получения данных из Redux
-import { useNavigate } from 'react-router-dom'; // Используем для перехода на другую страницу
-import welcomeImage from '../../assets/home/home_1.png'; // Путь к изображению
-import './WelcomeSection.css'; // Стили
+import { useSelector } from 'react-redux'; 
+import { useNavigate } from 'react-router-dom'; 
+import welcomeImage from '../../assets/home/home_1.png'; 
+import './WelcomeSection.css'; 
 
 function WelcomeSection() {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Проверяем авторизацию
-  const navigate = useNavigate(); // Для перенаправления на страницу поиска
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); 
+  const navigate = useNavigate(); 
 
   return (
     <section className="welcome-section">
@@ -18,17 +18,15 @@ function WelcomeSection() {
         <p className="welcome-section__description">
           Комплексный анализ публикаций, получение данных в формате PDF на электронную почту.
         </p>
-        {/* Показываем кнопку только для авторизованных пользователей */}
         {isAuthenticated && (
           <button
             className="welcome-section__button"
-            onClick={() => navigate('/search')} // Переход на страницу ввода параметров поиска
+            onClick={() => navigate('/search')} 
           >
             Запросить данные
           </button>
         )}
       </div>
-      {/* Картинка */}
       <div className="welcome-section__image">
         <img src={welcomeImage} alt="Сервис по поиску публикаций" />
       </div>

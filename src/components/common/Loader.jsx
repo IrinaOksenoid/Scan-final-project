@@ -1,18 +1,18 @@
-import React from 'react';
 import './Loader.css';
 
 function Loader() {
   return (
     <div className="loader">
-      <div className="dot"></div>
-      <div className="dot"></div>
-      <div className="dot"></div>
-      <div className="dot"></div>
-      <div className="dot"></div>
-      <div className="dot"></div>
-      <div className="dot"></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   );
 }
 
-export default Loader; 
+export default Loader;

@@ -32,7 +32,7 @@ function MobileSummaryCarousel({ histograms }) {
 
       <div className="mobile-summary-carousel__container">
         <button
-          className="slider__arrow slider__arrow--left"
+          className="carousel__arrow carousel__arrow--left"
           onClick={handlePrev}
           disabled={currentIndex === 0}
         >
@@ -46,7 +46,7 @@ function MobileSummaryCarousel({ histograms }) {
         </div>
 
         <button
-          className="slider__arrow slider__arrow--right"
+          className="carousel__arrow carousel__arrow--right"
           onClick={handleNext}
           disabled={currentIndex === totalDocuments.length - 1}
         >

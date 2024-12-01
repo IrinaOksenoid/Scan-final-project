@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Импортируем useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import { Header, Footer } from '../../components/common';  
 import { SearchHeader, SearchForm } from '../../components/SearchPage';
 import './searchPage.css';
@@ -8,10 +8,9 @@ import folderIcon from '../../assets/search/icon_folders.svg';
 import searchHero from '../../assets/search/search_1.png';
 
 function SearchPage() {
-  const navigate = useNavigate(); // Инициализируем useNavigate
+  const navigate = useNavigate(); 
 
   const handleSearch = (formData) => {
-    // Передаем параметры поиска в ResultPage
     navigate('/results', { state: { searchParams: formData } });
   };
 

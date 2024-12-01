@@ -13,7 +13,7 @@ const apiClient = async (endpoint, options = {}) => {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      ...(token && { Authorization: `Bearer ${token}` }), // Добавляем токен, если он существует
+      ...(token && { Authorization: `Bearer ${token}` }), 
     },
     ...options,
   };

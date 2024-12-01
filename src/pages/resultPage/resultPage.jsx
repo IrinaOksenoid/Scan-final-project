@@ -4,6 +4,7 @@ import { Header, Footer } from '../../components/common';
 import { ResultHeader, SummaryCarousel, DocumentList } from '../../components/ResultPage';
 import { buildSearchParams } from '../../utils/searchParams';
 import { fetchHistogramsAndPublications, fetchBatchDocuments } from '../../services/resultService';
+import { Loader } from '../../components/common';
 import './resultPage.css';
 
 function ResultPage() {
@@ -36,12 +37,12 @@ function ResultPage() {
 
         setHistograms(fetchedHistograms);
         setDocumentIds(fetchedIds);
-        console.log('Fetched Histograms:', fetchedHistograms);
-        console.log('Fetched Publication IDs:', fetchedIds);
+        //console.log('Fetched Histograms:', fetchedHistograms);
+        // console.log('Fetched Publication IDs:', fetchedIds);
 
         // Загружаем первые 10 публикаций
         const initialDocuments = await fetchBatchDocuments(fetchedIds, 0, 10);
-        console.log('Fetched Initial Documents:', initialDocuments);
+        //console.log('Fetched Initial Documents:', initialDocuments);
         setDocuments(initialDocuments);
       } catch (err) {
         console.error('Error fetching results:', err);
@@ -70,7 +71,9 @@ function ResultPage() {
       <div className="result-page__content">
         <ResultHeader />
         {loading ? (
-          <div>Загрузка...</div>
+          <div className="loader-wrapper">
+            <Loader />
+          </div>
         ) : error ? (
           <div className="error-message">{error}</div>
         ) : (

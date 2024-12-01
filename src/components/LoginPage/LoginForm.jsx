@@ -5,10 +5,12 @@ import './LoginForm.css';
 import googleIcon from '../../assets/login/Social_google.svg';
 import fbIcon from '../../assets/login/Social_fb.svg';
 import yaIcon from '../../assets/login/Social_ya.svg';
+import  lockIcon from '../../assets/login/icon_lock.svg';
 import { login } from '../../services/authService'; // Импортируем функцию логина
 import { validateForm } from '../../utils/validation';
 import { useNavigate } from 'react-router-dom'; // Импортируем useNavigate
 import { login as loginAction } from '../../store/slices/authSlice'; // Импортируем действие login
+import {Loader} from '../common';
 
 function LoginForm() {
   const dispatch = useDispatch(); // Инициализация dispatch
@@ -22,36 +24,43 @@ function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Передаём значения формы для валидации
+  
     const { isValid, errors } = validateForm({ login: loginValue, password });
     if (!isValid) {
-      setErrors(errors); // Устанавливаем ошибки в состоянии компонента
+      setErrors(errors); // Локальные ошибки
       return;
     }
-
+  
     setIsLoading(true);
+    setErrors({}); // Очищаем предыдущие ошибки
     setApiError('');
-
+  
     try {
-      const data = await login(loginValue, password); // Вызываем функцию логина
+      const data = await login(loginValue, password);
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('tokenExpire', data.expire);
-      localStorage.setItem('user', JSON.stringify({ name: 'Имя пользователя' })); // Пример: имя пользователя
-      console.log('Успешная авторизация:', data);
-      dispatch(loginAction({ user: { login: loginValue } })); // Диспатчим логин с данными пользователя
-      // Перенаправляем на страницу с формой поиска
-      navigate('/search'); // Укажите правильный путь для страницы поиска
+      localStorage.setItem('user', JSON.stringify({ name: 'Имя пользователя' }));
+      dispatch(loginAction({ user: { login: loginValue } }));
+      navigate('/search');
     } catch (error) {
-      console.error('Ошибка:', error);
-      setApiError(error.message);
+      console.error('API Error:', error);
+      if (error.message === 'Неправильное имя или пароль') {
+        // Устанавливаем ошибку для обоих полей
+        setErrors({ login: 'Ошибка', password: 'Ошибка' });
+        setApiError('Неправильное имя или пароль'); // Общая ошибка под паролем
+      } else {
+        setApiError(error.message || 'Произошла ошибка');
+      }
     } finally {
       setIsLoading(false);
     }
   };
+  
+  
 
   return (
     <div className="login-form">
+      <img src={lockIcon} alt="Lock Icon" className="login-form__icon" />
       <div className="login-form__tabs">
         <button className="login-form__tab login-form__tab--active">Войти</button>
         <button className="login-form__tab">Зарегистрироваться</button>
@@ -65,7 +74,6 @@ function LoginForm() {
             value={loginValue}
             onChange={(e) => setLoginValue(e.target.value)}
           />
-          {errors.login && <span className="login-form__error">{errors.login}</span>}
         </label>
         <label className="login-form__label">
           Пароль:
@@ -75,22 +83,25 @@ function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {errors.password && <span className="login-form__error">{errors.password}</span>}
+          {/* Общая ошибка отображается под паролем */}
+          {apiError && <span className="login-form__error">{apiError}</span>}
         </label>
         <button
           type="submit"
-          className={`login-form__button ${isLoading ? 'login-form__button--loading' : ''}`}
-          disabled={isLoading || !loginValue || !password} // Блокируем кнопку
+          className={`login-form__button ${isLoading || !loginValue || !password ? 'login-form__button--disabled' : ''}`}
+          disabled={isLoading || !loginValue || !password}
         >
-          {isLoading ? 'Авторизация...' : 'Войти'} {/* Показываем текст или лоадер */}
+          {isLoading ? <Loader /> : 'Войти'}
         </button>
-        {apiError && <span className="login-form__error">{apiError}</span>}
+
         <a href="/forgot-password" className="login-form__link">
           Восстановить пароль
         </a>
       </form>
+
+      <div className="login-form-header">Войти через:</div>
       <div className="login-form__socials">
-        <span>Войти через:</span>
+        
         <button className="login-form__social">
           <img src={googleIcon} alt="Google" />
         </button>

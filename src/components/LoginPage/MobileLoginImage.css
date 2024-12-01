@@ -1,15 +1,13 @@
 .mobile-login-image {
-    display: none; /* По умолчанию скрыто */
+    display: none; 
   }
   
   .mobile-login-image img {
     width: 100%;
-    /* max-width: 300px; */
     height: auto;
     margin: 20px auto;
   }
   
-  /* Показываем в мобильной версии */
   @media (max-width: 720px) {
     .mobile-login-image {
       display: block;

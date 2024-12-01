@@ -3,7 +3,6 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  /* margin: 0 15px; */
   background-color: var(--white-color);
   position: relative;
   z-index: 10;
@@ -25,12 +24,10 @@
   color: var(--primary-color);
 }
 
-
 .header__account {
   display: flex;
   align-items: center;
   gap: 20px;
- 
 }
 
 .header__auth {
@@ -39,23 +36,23 @@
   gap: 10px;
 }
 
-.header__register{
+.header__register {
   font-size: 14px;
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.4);;
+  color: rgba(0, 0, 0, 0.4);
 }
+
 .header__login {
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
-  color: #000; /* Чёрный цвет текста */
-  background-color: var(--secondary-accent-color); /* Цвет кнопки */
-  border: none; /* Убираем рамку */
-  border-radius: 5px; /* Скругленные углы */
-  padding: 5px 10px; /* Внутренние отступы */
-  cursor: pointer; /* Указатель мыши при наведении */
-  transition: background-color 0.3s ease; /* Анимация изменения фона */
-
+  color: var(--black-color);
+  background-color: var(--secondary-accent-color);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .header__divider {
@@ -74,31 +71,35 @@
   padding: 9px 4px;
   font-size: 10px;
   color: rgba(0, 0, 0, 0.4);
-  margin: 0;
 }
 
-.header__limits p{
-
-margin: 7px;
+.header__limits p {
+  margin: 7px;
 }
 
-.header__limits-used{
-font-size: 14px;
-font-weight: 700;
-color: var(--black-color);
+.header__limits-used {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--black-color);
 }
 
-.header__limits-company{
+.header__limits-company {
   font-size: 14px;
   font-weight: 700;
   color: #8AC540;
 }
 
-
 .header__user {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  gap: 10px;
+}
+
+.header__user-text {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
   gap: 10px;
   color: rgba(0, 0, 0, 0.4);
 }
@@ -110,7 +111,6 @@ color: var(--black-color);
   font-size: 10px;
 }
 
-/* Мобильное меню */
 .header__menu-icon {
   display: none;
   cursor: pointer;
@@ -118,23 +118,9 @@ color: var(--black-color);
 
 .menu-icon {
   width: 25px;
-  height: 3px;
-  background-color: var(--primary-color);
+  height: 30px;
   position: relative;
-}
-
-.menu-icon.open {
-  transform: rotate(45deg);
-}
-
-.header__mobile-menu {
-  position: absolute;
-  top: 93px;
-  left: 0;
-  width: 100%;
-  background-color: var(--white-color);
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  z-index: 20;
+  margin-right: 4px;
 }
 
 .mobile-menu__nav {
@@ -142,7 +128,6 @@ color: var(--black-color);
   flex-direction: column;
   padding: 20px;
 }
-
 
 @media (max-width: 720px) {
   .header__nav,
