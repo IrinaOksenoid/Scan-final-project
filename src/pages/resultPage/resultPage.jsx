@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Header, Footer } from '../../components/common';
 import { ResultHeader, SummaryCarousel, DocumentList } from '../../components/ResultPage';
 import { buildSearchParams } from '../../utils/searchParams';
-import { fetchHistogramsAndPublications, fetchBatchDocuments } from '../../services/resultService';
+import { fetchResults, fetchMoreDocuments } from '../../store/slices';
 import { Loader } from '../../components/common';
 import './resultPage.css';
 
@@ -11,81 +12,63 @@ function ResultPage() {
   const location = useLocation();
   const searchParams = location.state?.searchParams;
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [histograms, setHistograms] = useState([]);
-  const [documentIds, setDocumentIds] = useState([]);
-  const [documents, setDocuments] = useState([]);
+  const dispatch = useDispatch();
+  const { histograms, documentIds, documents, loading, error } = useSelector((state) => state.results);
 
   useEffect(() => {
-    const fetchResults = async () => {
-      if (!searchParams) {
-        setError('Параметры поиска не переданы');
-        setLoading(false);
-        return;
-      }
-
-      setLoading(true);
-      setError(null);
-
-      try {
-        const params = buildSearchParams(searchParams); // Формируем параметры для API
-        console.log('Request Parameters:', params);
-
-        // Загружаем сводку и ID публикаций
-        const { histograms: fetchedHistograms, ids: fetchedIds } = await fetchHistogramsAndPublications(params);
-
-        setHistograms(fetchedHistograms);
-        setDocumentIds(fetchedIds);
-        //console.log('Fetched Histograms:', fetchedHistograms);
-        // console.log('Fetched Publication IDs:', fetchedIds);
-
-        // Загружаем первые 10 публикаций
-        const initialDocuments = await fetchBatchDocuments(fetchedIds, 0, 10);
-        //console.log('Fetched Initial Documents:', initialDocuments);
-        setDocuments(initialDocuments);
-      } catch (err) {
-        console.error('Error fetching results:', err);
-        setError('Произошла ошибка при загрузке данных.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchResults();
-  }, [searchParams]);
-
-  const handleLoadMore = async () => {
-    try {
-      const nextBatch = await fetchBatchDocuments(documentIds, documents.length, 10);
-      setDocuments((prevDocs) => [...prevDocs, ...nextBatch]);
-    } catch (error) {
-      console.error('Error loading more documents:', error);
-      setError('Произошла ошибка при загрузке дополнительных документов.');
+    if (searchParams) {
+      const params = buildSearchParams(searchParams);
+      dispatch(fetchResults(params)); 
     }
-  };
+  }, [dispatch, searchParams]);
+  
 
-  return (
-    <div className="result-page">
-      <Header />
-      <div className="result-page__content">
+  const handleLoadMore = () => {
+    if (documents.length >= documentIds.length) {
+      alert('Больше нет документов для загрузки.');
+      return;
+    }
+  
+    dispatch(
+      fetchMoreDocuments({
+        ids: documentIds,
+        offset: documents.length,
+        limit: 10,
+      })
+    );
+  };
+  
+  
+
+  const hasMoreDocuments = documents.length < documentIds.length;
+
+return (
+  <div className="result-page">
+    <Header />
+    <div className="result-page__content">
+      {!loading && !error && documents.length === 0 ? (
         <ResultHeader />
-        {loading ? (
-          <div className="loader-wrapper">
-            <Loader />
-          </div>
-        ) : error ? (
-          <div className="error-message">{error}</div>
-        ) : (
-          <>
-            <SummaryCarousel histograms={histograms} />
-            <DocumentList documents={documents} onLoadMore={handleLoadMore} />
-          </>
-        )}
-      </div>
-      <Footer />
+      ) : null}
+      {loading ? (
+        <div className="loader-wrapper">
+          <Loader />
+        </div>
+      ) : error ? (
+        <div className="error-message">{error}</div>
+      ) : (
+        <>
+          <SummaryCarousel histograms={histograms} />
+          <DocumentList
+            documents={documents}
+            onLoadMore={handleLoadMore}
+            hasMoreDocuments={hasMoreDocuments} 
+          />
+        </>
+      )}
     </div>
-  );
+    <Footer />
+  </div>
+);
 }
 
 export default ResultPage;

@@ -20,9 +20,10 @@ function SummaryCarousel({ histograms, loading, error }) {
   }, []);
 
   function calculateItemsPerPage() {
-    const containerWidth = window.innerWidth;
-    const itemWidth = 142; // Ширина одного блока, например 200px
-    return Math.max(Math.floor(containerWidth / itemWidth), 1); // Минимум 1 элемент
+    const containerWidth = window.innerWidth-274;
+    console.log ('containerWidth', containerWidth);
+    const itemWidth = 142; 
+    return Math.max(Math.floor(containerWidth / itemWidth), 1); 
   }
 
   if (loading) {
@@ -38,8 +39,11 @@ function SummaryCarousel({ histograms, loading, error }) {
   }
 
   const totalDocuments = histograms.find((item) => item.histogramType === 'totalDocuments')?.data || [];
+  console.log('total documents', totalDocuments);
   const riskFactors = histograms.find((item) => item.histogramType === 'riskFactors')?.data || [];
   const totalPages = Math.ceil(totalDocuments.length / itemsPerPage);
+  console.log('totalDocuments.length ', totalDocuments.length );
+  console.log('totalPages', totalPages);
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };

@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './slices/authSlice';
-import limitsReducer from './slices/limitsSlice';
+import { authReducer, limitsReducer, resultReducer } from './slices';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     limits: limitsReducer,
+    results: resultReducer, 
   },
 });
 

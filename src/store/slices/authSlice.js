@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    isAuthenticated: !!localStorage.getItem('accessToken'), // Проверяем токен в localStorage
+    isAuthenticated: !!localStorage.getItem('accessToken'), 
     user: null,
   },
   reducers: {
@@ -14,7 +14,7 @@ const authSlice = createSlice({
     logout(state) {
       state.isAuthenticated = false;
       state.user = null;
-      localStorage.removeItem('accessToken'); // Удаляем токен из localStorage
+      localStorage.removeItem('accessToken'); 
       localStorage.removeItem('tokenExpire');
     },
      restoreSession(state, action) {

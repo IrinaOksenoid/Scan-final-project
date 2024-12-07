@@ -7,3 +7,10 @@
     padding: 0 15px;
     width: 100%;
 }
+
+.home_page__wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

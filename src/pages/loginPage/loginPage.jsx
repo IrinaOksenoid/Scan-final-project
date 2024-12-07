@@ -14,7 +14,7 @@ function LoginPage() {
           <LoginImage />
         </div>
         <LoginForm />
-        <MobileLoginImage /> {/* Картинка для мобильной версии */}
+        <MobileLoginImage /> 
       </div>
       <Footer />
     </div>

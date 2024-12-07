@@ -14,7 +14,7 @@ function SearchForm({ onSearch }) {
     documentCount: '',
     startDate: '',
     endDate: '',
-    maxFullness: true, // Значение по умолчанию для мобильной версии
+    maxFullness: true, 
     nBusinessNews: true,
     onlyMainRole: true,
     onlyWithRiskFactors: false,
@@ -151,7 +151,6 @@ function SearchForm({ onSearch }) {
           </label>
         </div>
 
-        {/* Добавляем компонент CheckboxGroup */}
         <CheckboxGroup formData={formData} onChange={handleChange} />
 
         <div className="search-form__button-wrapper">

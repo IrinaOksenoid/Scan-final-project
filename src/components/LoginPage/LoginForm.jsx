@@ -1,40 +1,39 @@
-
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import './LoginForm.css';
 import googleIcon from '../../assets/login/Social_google.svg';
 import fbIcon from '../../assets/login/Social_fb.svg';
 import yaIcon from '../../assets/login/Social_ya.svg';
-import  lockIcon from '../../assets/login/icon_lock.svg';
-import { login } from '../../services/authService'; // Импортируем функцию логина
+import lockIcon from '../../assets/login/icon_lock.svg';
+import { login } from '../../services/authService';
 import { validateForm } from '../../utils/validation';
-import { useNavigate } from 'react-router-dom'; // Импортируем useNavigate
-import { login as loginAction } from '../../store/slices/authSlice'; // Импортируем действие login
-import {Loader} from '../common';
+import { useNavigate } from 'react-router-dom';
+import { login as loginAction } from '../../store/slices/authSlice';
+import { Loader } from '../common';
 
 function LoginForm() {
-  const dispatch = useDispatch(); // Инициализация dispatch
+  const dispatch = useDispatch();
   const [loginValue, setLoginValue] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ login: '', password: '' });
   const [apiError, setApiError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate(); // Создаём функцию для перенаправления
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const { isValid, errors } = validateForm({ login: loginValue, password });
     if (!isValid) {
-      setErrors(errors); // Локальные ошибки
+      setErrors(errors);
       return;
     }
-  
+
     setIsLoading(true);
-    setErrors({}); // Очищаем предыдущие ошибки
+    setErrors({});
     setApiError('');
-  
+
     try {
       const data = await login(loginValue, password);
       localStorage.setItem('accessToken', data.accessToken);
@@ -43,11 +42,9 @@ function LoginForm() {
       dispatch(loginAction({ user: { login: loginValue } }));
       navigate('/search');
     } catch (error) {
-      console.error('API Error:', error);
       if (error.message === 'Неправильное имя или пароль') {
-        // Устанавливаем ошибку для обоих полей
         setErrors({ login: 'Ошибка', password: 'Ошибка' });
-        setApiError('Неправильное имя или пароль'); // Общая ошибка под паролем
+        setApiError('Неправильное имя или пароль');
       } else {
         setApiError(error.message || 'Произошла ошибка');
       }
@@ -55,8 +52,6 @@ function LoginForm() {
       setIsLoading(false);
     }
   };
-  
-  
 
   return (
     <div className="login-form">
@@ -83,7 +78,6 @@ function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {/* Общая ошибка отображается под паролем */}
           {apiError && <span className="login-form__error">{apiError}</span>}
         </label>
         <button
@@ -93,15 +87,12 @@ function LoginForm() {
         >
           {isLoading ? <Loader /> : 'Войти'}
         </button>
-
         <a href="/forgot-password" className="login-form__link">
           Восстановить пароль
         </a>
       </form>
-
       <div className="login-form-header">Войти через:</div>
       <div className="login-form__socials">
-        
         <button className="login-form__social">
           <img src={googleIcon} alt="Google" />
         </button>
@@ -117,5 +108,3 @@ function LoginForm() {
 }
 
 export default LoginForm;
-
-

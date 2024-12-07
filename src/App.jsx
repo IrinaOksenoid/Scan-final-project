@@ -9,7 +9,6 @@ import SearchPage from './pages/searchPage/searchPage';
 import ResultPage from './pages/resultPage/resultPage';
 
 
-// Компонент для маршрутов, требующих авторизации
 function ProtectedRoute({ isAuthenticated, children }) {
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
@@ -19,16 +18,15 @@ function ProtectedRoute({ isAuthenticated, children }) {
 
 function App() {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Проверка авторизации из Redux
-
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); 
   useEffect(() => {
     const tokenIsValid = isTokenValid();
     const userData = JSON.parse(localStorage.getItem('user')); 
 
     if (tokenIsValid && userData) {
-      dispatch(restoreSession(userData)); // Восстановление сессии
+      dispatch(restoreSession(userData)); 
     } else {
-      dispatch(logout()); // Если токен недействителен
+      dispatch(logout()); 
     }
   }, [dispatch]);
 

@@ -4,7 +4,6 @@ const apiClient = async (endpoint, options = {}) => {
   const token = localStorage.getItem('accessToken');
   const tokenExpire = localStorage.getItem('tokenExpire');
   
-  // Проверка срока действия токена
   if (tokenExpire && new Date(tokenExpire) <= new Date()) {
     throw new Error('Токен истек. Выполните вход заново.');
   }

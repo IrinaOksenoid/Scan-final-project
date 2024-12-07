@@ -99,6 +99,13 @@
   color: #6b6b6b;
 }
 
+.publication-card__button--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+
 @media (max-width: 720px) {
   .publication-card {
     padding: 20px;

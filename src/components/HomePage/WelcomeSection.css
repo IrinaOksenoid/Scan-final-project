@@ -23,12 +23,14 @@
     font-family: 'Inter', sans-serif;
     font-size: 18px;
     color: #6b6b6b;
-    margin-bottom: 30px;
+    margin-bottom: 70px;
   }
   
   .welcome-section__button {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 500;
+    width: 335px;
+    height: 59px;
     color:var(--white-color);
     background-color:var(--highlight-color);
     padding: 10px 20px;
